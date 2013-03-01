@@ -1,0 +1,200 @@
+# The problem length (actual number of samples: 2N+1)
+37500
+# How much data to skip (in samples)
+0
+# Time step (2x dt)
+0.040000
+# Data File names - input
+# d1
+../20120406_1_3_19v.dat
+# these data were not filtered to smooth them
+#v_in.txt
+# Data File name - stimuli
+../20120406_1_3_19i.dat
+# Boundary & initial conditions
+# 0 for no initial data file, 1 for data file
+0
+# If 1, list name of data file next.  If 0, no entry needed
+#initial.dat
+# State Variables:
+# If data file added, do not need third column, but it doesn't hurt
+# VV
+-120, 70, 0
+# mm
+0, 1, 0.5133
+# hh
+0, 1, 0.5081
+# nn
+0, 1, 0.6119
+# bb
+0, 1, 0.40032
+# pp
+0, 1, 0.6091
+# qq
+0, 1, 0.30011
+# cc
+#0, 1, 0.40922
+# dd
+#0, 1, 0.308713
+# uu
+0, 1, 0.5117
+# rr
+0, 1, 0.50273
+# ss
+0, 1, 0.39971
+# tt
+0, 1, 0.40036
+# zz
+0, 1, 0.30021
+# Controls:
+# u1  -- is 100 big enough of an upper bound?
+0, 1, 0
+# Need to put du after its own u
+-1, 1, 0
+# Parameters:
+#Cm #2
+0.9, 1.1, 1
+# gNa  #3
+5, 170, 105
+# gNaP #4
+0, 20, 1.5
+# ENa  #5
+45, 55, 50
+# gA1  #6
+0, 80, 3.7
+# gA2 #7
+0, 80, 5.1
+# gc #8
+0, 12, 0.2
+# EK #9b
+-85, -70, -80
+# gL  #10
+0.01, 0.6, 0.0664
+# EL #11
+-65, -48, -50
+# gou #12
+0.01, 9, 0.9
+# rht #13
+0.0, 10.0, 1.0
+# gh #14
+0, 10, 0.1
+# Iarea Isa in eqn.txt #15
+0.015, 0.25, 0.07
+# amV1 - activation of Na #16
+-45, -15, -41
+# amV2 #17
+.5, 25, 10
+# amV3 #18
+.5, 25, 20
+# tm0 #19
+0.01, 0.7, 0.3
+# epsm #20
+0.012, 7, 1.04
+# ahV1 - inactivation of Na #21
+-75, -35, -62
+# ahV2 #22
+-25, -0.5, -18
+# ahV3 #23
+5, 25, 23
+# th0 #24
+0.02, 2, 1
+# epsh #25
+1, 30, 13
+# anV1 - activation of NaP #26
+-69, -29, -49
+# anV2 #27
+5, 25, 10
+# anV3 #28
+5, 25, 20
+# tn0 #29
+0.02, 2, 0.3
+# epsn #30
+0.012, 7, 1.04
+# abV1 - activation of A2(?) #27
+-69, -21, -56
+# abV2 #28
+5, 25, 14
+# abV3 #29
+5, 25, 24
+# tb0 #30
+0.02, 2, 0.37
+# epsb #31
+1, 30, 2
+# apV1 - activation of A1(?) #32
+-90, -21, -36
+# apV2 #33
+5, 48, 34
+# apV3 #34
+5, 48, 24
+# tp0 #35
+0.02, 2, 0.37
+# epsp #36
+1, 30, 2
+# aqV1 - inactivation of A1(?) #37
+-90, -35, -78
+# aqV2 #38
+-39, -5, -12
+# aqV3 #39
+-39, -5, -17
+# tq0 #40
+0.02, 2, 15
+# epsq #41
+0.5, 100, 34
+# deltasq #42
+0, 30, 20
+# auV1 - activation of C #43
+-15, 40, 15
+# auV2 #44
+5, 65, 26
+# auV3 #45
+5, 70, 36
+# tu0 #46
+0.02, 55, 0.1
+# epsu #47
+1, 150, 6.4
+# arV1 - activation of L #48
+-56, -8, -14.14
+# arV2 #49
+5, 49, 19
+# arV3 #50
+5, 55, 32
+# tr0 #51
+0.02, 2, 0.4
+# epsr #52
+1, 295, 1.15
+# asV1 - activation of T #53
+-80, -35, -56
+# asV2 #54
+5, 39, 13
+# asV3 #55
+5, 57, 27
+# ts0 #56
+0.02, 2, 0.204
+# eps5 #57
+1, 150, 4.52
+# atV1 - inactivation of T #58
+-90, -55, -79
+# atV2 #59
+-34, -5, -8
+# atV3 #60
+3, 55, 26
+# atV4 #61
+3, 55, 16
+# tx0 #62
+5, 190, 28
+# epst #63
+0.5, 7000, 190
+# azV1 - inactivation of h current #64
+-90, -40, -75
+# azV2 #65
+-40, -5, -10
+# azV3 #66
+5, 40, 20
+# tz0 #67
+0.02, 2, 10
+# epsz #68
+100, 2000, 1000
+# rlt #69
+0.00, 10, 1
+# rht #73
+0.00, 10, 1

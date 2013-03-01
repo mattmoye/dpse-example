@@ -1,0 +1,58 @@
+#-*- mode: org -*-
+#+STARTUP:    align fold hidestars oddeven
+#+TITLE: BioHH1 example analysis
+#+AUTHOR: Dan Meliza
+
+This directory is a complete example of an analysis to estimate the parameters
+and state variables of a conductance-based neuron model using intracellular
+current clamp data.  The analysis has several steps.
+
+* Specify the model
+
+The model comprises a set of ordinary differential equations, which are
+specified in a file called =equations.txt=. This directory contains an example
+model with 12 state variables and 73 parameters. The file is commented.
+
+* Generate the estimation code
+
+Next, a python program (originally by Bryan Toth) converts the symbolic
+description of the model in =equation.txt= into C++ functions. Essentially this
+involves computing a lot of derivatives to get the Jacobian and Hessian. To run
+this step:
+
+: python model/makecode.py
+
+Expect this to take a long time, but you only need to run this when the
+=equations.txt= file changes. The makecode script expects to find
+=equations.txt= in the current directory.
+
+* Compile the estimation code
+
+Successful completion of the previous step will result in generation of a number
+of C++ files and a Makefile.  You will need to have IPOPT installed for the
+next step. This example has been tested with version 3.10.3.  The Makefile
+expects to find IPOPT using pkg-config.  If you have problems you may need to
+edit the COIN_LDFLAGS and COIN_CFLAGS lines in the Makefile.  You will also
+need a reasonably modern C++ compiler (e.g. gcc 4.3 or later).  Older compilers
+may run out of memory.  To compile on the Margoliash lab cluster,
+
+: CXX=g++44 make
+
+This step also takes a long time.
+
+* Run the estimation procedure
+
+If the previous step completes successfully, you will have an executable called
+=biohh1=. At this point you can adjust the parameter guesses and bounds by
+editing =specs.txt=. This file is also commented.  Changes to this file do not
+require a recompilation of the executable.  You may also want to edit
+=biohh1.opt= to set tolerances and maximum number of iterations.  Consult the
+IPOPT documentation for more information on the parameters.  To run the
+estimation:
+
+: ./biohh1
+
+Guess what? This takes a long time, too.  You will see some nice status updates
+as the estimates converge.  At the end there will be two files you can inspect.
+=param.dat= has the parameter estimates; =data.dat= has the state variables.
+

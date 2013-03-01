@@ -1,0 +1,212 @@
+# Data file for discretize.py
+# Discretize.py skips over any line that begin with #
+# Proper format is:
+# First line is problem name
+# Second line is number of equations (w/o cost), number of parameters, number of controls,
+# number of external stimuli (for instance, injected current)
+# Following lines list the equations
+# With the cost function last
+# Then the variable names (in same order as equations)
+# Parameter names used in equations
+# Control names used in equations
+# Data names used in equations
+# Problem Name
+biohh1
+# nY.nP,nU,nI,nF
+12,73,1,1,0
+# equations
+((gNa*mm*mm*mm*hh+gP*nn)*(ENa-VV)+(gA1*bb*bb*bb*bb+gA2*pp*pp*pp*pp*qq+gc*uu)*(EK-VV)+(rlt*rr*rr+rht*ss*ss*tt)*19.2970673*(gou-0.0001*exp(VV/13))/(1+VV/26*(1+VV/39*(1+VV/52*(1+VV/65*(1+VV/78*(1+VV/91*(1+VV/104*(1+VV/117*(1+VV/130*(1+VV/143*(1+VV/156*(1+VV/169*(1+VV/182*(1+VV/195*(1+VV/208*(1+VV/221*(1+VV/234*(1+VV/247*(1+VV/260*(1+VV/273*(1+VV/286*(1+VV/299*(1+VV/312*(1+VV/325))))))))))))))))))))))))+gL*(EL-VV)+gh*zz*(-43-VV)+Iinj/Isa)/Cm+k1*(Vdata-VV)
+# Na activation
+0.5*(1+tanh((VV-amV1)/amV2)-2*mm)/(tm0+epsm*(1-tanh((VV-amV1)/amV3)*tanh((VV-amV1)/amV3)))
+# Na inactivation
+0.5*(1+tanh((VV-ahV1)/ahV2)-2*hh)/(th0+epsh*(1-tanh((VV-ahV1)/ahV3)*tanh((VV-ahV1)/ahV3)))
+# NaP activation
+0.5*(1+tanh((VV-anV1)/anV2)-2*nn)/(tn0+epsn*(1-tanh((VV-anV1)/anV3)*tanh((VV-anV1)/anV3)))
+# K or A1 current activation
+0.5*(1+tanh((VV-abV1)/abV2)-2*bb)/(tb0+epsb*(1-tanh((VV-abV1)/abV3)*tanh((VV-abV1)/abV3)))
+# A2 current activation
+0.5*(1+tanh((VV-apV1)/apV2)-2*pp)/(tp0+epsp*(1-tanh((VV-apV1)/apV3)*tanh((VV-apV1)/apV3)))
+# A2 current inactivation
+0.5*(1+tanh((VV-aqV1)/aqV2)-2*qq)/(tq0+deltasq+0.5*(1-tanh(VV-aqV1))*(epsq*(1-tanh((VV-aqV1)/aqV3)*tanh((VV-aqV1)/aqV3))-deltasq))
+# C current activation
+0.5*(1+tanh((VV-auV1)/auV2)-2*uu)/(tu0+epsu*(1-tanh((VV-auV1)/auV3)*tanh((VV-auV1)/auV3)))
+# L current activation
+0.5*(1+tanh((VV-arV1)/arV2)-2*rr)/(tr0+epsr*(1-tanh((VV-arV1)/arV3)*tanh((VV-arV1)/arV3)))
+# T current activation
+0.5*(1+tanh((VV-asV1)/asV2)-2*ss)/(ts0+eps5*(1-tanh((VV-asV1)/asV3)*tanh((VV-asV1)/asV3)))
+# T current inactivation
+0.5*(1+tanh((VV-atV1)/atV2)-2*tt)/(tx0+epst*(1+tanh((VV-atV1)/atV3))*(1-tanh((VV-atV1)/atV4))*(1-tanh(VV-atV1)*tanh((1/atV3+1/atV4)*(VV-atV1)))/(1+tanh((VV-atV1)/atV3)*tanh((VV-atV1)/atV4)))
+# h current inactivation
+0.5*(1+tanh((VV-azV1)/azV2)-2*zz)/(tz0+epsz*(1-tanh((VV-azV1)/azV3)*tanh((VV-azV1)/azV3)))
+# Objective/Cost function
+(Vdata-VV)*(Vdata-VV)+k1*k1
+# variable names
+VV
+mm
+hh
+nn
+bb
+pp
+qq
+# cc
+# dd
+uu
+rr
+ss
+tt
+zz
+# parameter names
+#1
+Cm
+#2
+gNa
+#3
+gP
+#4
+ENa
+#5
+gA1
+#6
+gA2
+#7
+gc
+#8
+EK
+#9
+gL
+#10
+EL
+#11
+gou
+#12
+gin
+#13
+gh
+#14
+Isa
+#15
+amV1
+#16
+amV2
+#17
+amV3
+#18
+tm0
+#19
+epsm
+#20
+ahV1
+#21
+ahV2
+#22
+ahV3
+#23
+th0
+#24
+epsh
+#25
+anV1
+#26
+anV2
+#27
+anV3
+#28
+tn0
+#29
+epsn
+#30
+abV1
+#31
+abV2
+#32
+abV3
+#33
+tb0
+#34
+epsb
+#35
+apV1
+#36
+apV2
+#37
+apV3
+#38
+tp0
+#39
+epsp
+#40
+aqV1
+#41
+aqV2
+#42
+aqV3
+#43
+tq0
+#44
+epsq
+#45
+deltasq
+#46
+auV1
+#47
+auV2
+#48
+auV3
+#49
+tu0
+#50
+epsu
+#51
+arV1
+#52
+arV2
+#53
+arV3
+#54
+tr0
+#55
+epsr
+#56
+asV1
+#57
+asV2
+#58
+asV3
+#59
+ts0
+#60
+eps5
+#61
+atV1
+#62
+atV2
+#63
+atV3
+#64
+atV4
+#65
+tx0
+#66
+epst
+#67
+azV1
+#68
+azV2
+#69
+azV3
+#70
+tz0
+#71
+epsz
+#72
+rlt
+#73
+rht
+# control names
+k1
+# data names
+Vdata
+# stimuli names
+Iinj
+# Functions
+# shc , 1
