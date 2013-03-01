@@ -57,3 +57,16 @@ Guess what? This takes a long time, too.  You will see some nice status updates
 as the estimates converge.  At the end there will be two files you can inspect.
 =param.dat= has the parameter estimates; =data.dat= has the state variables.
 
+* Run forward predictions
+
+The completed model can be used to predict forward in time by integrating with
+the estimated state and parameter values. The example =specs.txt= file uses
+1500 ms for the assimilation, leaving quite a bit of data for prediction. Chris
+Knowlton's =ipopt_predict= script uses the equations.txt file and the
+output from IPOPT to generate forward predictions.  To run the prediction for
+the rest of the data in the example:
+
+: python model/ipopt_predict.py -e equations.txt pred.dat 258334
+
+The last commandline parameter specifies the number of time points to integrate
+forward after the end of the assimilation period.
