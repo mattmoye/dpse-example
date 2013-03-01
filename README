@@ -30,7 +30,7 @@ Expect this to take a long time, but you only need to run this when the
 
 Successful completion of the previous step will result in generation of a number
 of C++ files and a Makefile.  You will need to have IPOPT installed for the
-next step. This example has been tested with version 3.10.3.  The Makefile
+next step. This example has been tested with version 3.10.2.  The Makefile
 expects to find IPOPT using pkg-config.  If you have problems you may need to
 edit the COIN_LDFLAGS and COIN_CFLAGS lines in the Makefile.  You will also
 need a reasonably modern C++ compiler (e.g. gcc 4.3 or later).  Older compilers
@@ -44,11 +44,12 @@ This step also takes a long time.
 
 If the previous step completes successfully, you will have an executable called
 =biohh1=. At this point you can adjust the parameter guesses and bounds by
-editing =specs.txt=. This file is also commented.  Changes to this file do not
-require a recompilation of the executable.  You may also want to edit
-=biohh1.opt= to set tolerances and maximum number of iterations.  Consult the
-IPOPT documentation for more information on the parameters.  To run the
-estimation:
+editing =specs.txt=. This file is also commented. Changes to this file do not
+require a recompilation of the executable. Make sure it specifies the location
+of the input data files correctly, or you'll get a segmentation fault. You may
+also want to edit =biohh1.opt= to set tolerances and maximum number of
+iterations. Consult the IPOPT documentation for more information on the
+parameters. To run the estimation:
 
 : ./biohh1
 

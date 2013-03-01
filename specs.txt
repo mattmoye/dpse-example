@@ -6,11 +6,11 @@
 0.040000
 # Data File names - input
 # d1
-../20120406_1_3_19v.dat
+20120406_1_3_19v.dat
 # these data were not filtered to smooth them
 #v_in.txt
 # Data File name - stimuli
-../20120406_1_3_19i.dat
+20120406_1_3_19i.dat
 # Boundary & initial conditions
 # 0 for no initial data file, 1 for data file
 0
