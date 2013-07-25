@@ -7,6 +7,19 @@ This directory is a complete example of an analysis to estimate the parameters
 and state variables of a conductance-based neuron model using intracellular
 current clamp data.  The analysis has several steps.
 
+* Install prerequisites
+
+You will need to have g++, IPOPT, Python, and sympy for this tutorial. This
+example has been tested with g++ 4.3, IPOPT 3.10.2, Python 2.7, and sympy
+0.7.1.
+
+On kkong, these programs have already been installed through softenv. Type
+
+: soft add +python +ipopt
+
+to add them to your environment.  You will need to do this each time you login,
+or else set up a =.soft= file to load them automatically.
+
 * Specify the model
 
 The model comprises a set of ordinary differential equations, which are
@@ -29,12 +42,11 @@ Expect this to take a long time, but you only need to run this when the
 * Compile the estimation code
 
 Successful completion of the previous step will result in generation of a number
-of C++ files and a Makefile.  You will need to have IPOPT installed for the
-next step. This example has been tested with version 3.10.2.  The Makefile
-expects to find IPOPT using pkg-config.  If you have problems you may need to
-edit the COIN_LDFLAGS and COIN_CFLAGS lines in the Makefile.  You will also
-need a reasonably modern C++ compiler (e.g. gcc 4.3 or later).  Older compilers
-may run out of memory.  To compile on the Margoliash lab cluster,
+of C++ files and a Makefile. The Makefile expects to find IPOPT using
+pkg-config. If you have problems you may need to edit the COIN_LDFLAGS and
+COIN_CFLAGS lines in the Makefile. You will also need a reasonably modern C++
+compiler (e.g. gcc 4.3 or later). Older compilers may run out of memory. To
+compile on the Margoliash lab cluster,
 
 : CXX=g++44 make
 
@@ -70,3 +82,23 @@ the rest of the data in the example:
 
 The last commandline parameter specifies the number of time points to integrate
 forward after the end of the assimilation period.
+
+* Next steps
+
+Examine the format of the current and voltage input data files. Each is a single
+column of values. The units are mV for voltage and nA for current. You can
+generate your own files to analyze from your data. If you're using the cell
+database on kkong (/home3/hvc_cell_database), you can export data from an epoch
+to a table, which has three columns corresponding to time, voltage, and current
+(in picoamps). Use =awk= to export the data into the IPOPT format:
+
+: awk '/+|-/ {print $2}' FILENAME.tbl > FILENAME_v.dat
+: awk '/+|-/ {print $3/1000}' FILENAME.tbl > FILENAME_i.dat
+
+You should create a separate directory for each analysis and copy over the
+specs.txt, equations.txt, and biohh1 executable. You'll need to edit the
+specs.txt file to refer to the data files for each analysis, set how many
+samples to use, etc.
+
+After you've done this for a few epochs, you're ready to move on to batch
+processing (tutorial not written yet).
