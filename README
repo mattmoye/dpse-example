@@ -5,7 +5,7 @@
 
 This directory is a complete example of an analysis to estimate the parameters
 and state variables of a conductance-based neuron model using intracellular
-current clamp data.  The analysis has several steps.
+current clamp data. The analysis has several steps.
 
 * Install prerequisites
 
@@ -96,7 +96,7 @@ to a table, which has three columns corresponding to time, voltage, and current
 : awk '/+|-/ {print $3/1000}' FILENAME.tbl > FILENAME_i.dat
 
 You should create a separate directory for each analysis and copy over the
-specs.txt, equations.txt, and biohh1 executable. You'll need to edit the
+specs.txt, equations.txt, biohh1.opt, and biohh1 executable. You'll need to edit the
 specs.txt file to refer to the data files for each analysis, set how many
 samples to use, etc.
 
