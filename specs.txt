@@ -6,17 +6,17 @@
 0.040000
 # Data File names - input
 # d1
-20120406_1_3_19v.dat
+data/20120406_1_3_19v.dat
 # these data were not filtered to smooth them
 #v_in.txt
 # Data File name - stimuli
-20120406_1_3_19i.dat
+data/20120406_1_3_19i.dat
 # Boundary & initial conditions
 # 0 for no initial data file, 1 for data file
 0
 # If 1, list name of data file next.  If 0, no entry needed
 #initial.dat
-# State Variables:
+# State Variables: lower bound, upper bound, initial guess
 # If data file added, do not need third column, but it doesn't hurt
 # VV
 -120, 70, 0
@@ -47,11 +47,12 @@
 # zz
 0, 1, 0.30021
 # Controls:
-# u1  -- is 100 big enough of an upper bound?
+# u1  (same as k1 in equations.txt)
 0, 1, 0
 # Need to put du after its own u
 -1, 1, 0
-# Parameters:
+# Parameters: lower bound, upper bound, initial guess
+# NB: the parameters will be in the same order in param.dat output
 #Cm #2
 0.9, 1.1, 1
 # gNa  #3

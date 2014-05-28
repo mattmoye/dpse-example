@@ -10,13 +10,14 @@
 # Parameter names used in equations
 # Control names used in equations
 # Data names used in equations
-# Problem Name
+# Problem Name - this will determine the name of the executable
 biohh1
 # nY.nP,nU,nI,nF
 12,73,1,1,0
-# equations
+# equations - ordinary first-order derivatives of the state variables wrt to time
+# dV/dt - note that the regularization term k1(Vdata-VV) enters here
 ((gNa*mm*mm*mm*hh+gP*nn)*(ENa-VV)+(gA1*bb*bb*bb*bb+gA2*pp*pp*pp*pp*qq+gc*uu)*(EK-VV)+(rlt*rr*rr+rht*ss*ss*tt)*19.2970673*(gou-0.0001*exp(VV/13))/(1+VV/26*(1+VV/39*(1+VV/52*(1+VV/65*(1+VV/78*(1+VV/91*(1+VV/104*(1+VV/117*(1+VV/130*(1+VV/143*(1+VV/156*(1+VV/169*(1+VV/182*(1+VV/195*(1+VV/208*(1+VV/221*(1+VV/234*(1+VV/247*(1+VV/260*(1+VV/273*(1+VV/286*(1+VV/299*(1+VV/312*(1+VV/325))))))))))))))))))))))))+gL*(EL-VV)+gh*zz*(-43-VV)+Iinj/Isa)/Cm+k1*(Vdata-VV)
-# Na activation
+# dm/dt - Na activation
 0.5*(1+tanh((VV-amV1)/amV2)-2*mm)/(tm0+epsm*(1-tanh((VV-amV1)/amV3)*tanh((VV-amV1)/amV3)))
 # Na inactivation
 0.5*(1+tanh((VV-ahV1)/ahV2)-2*hh)/(th0+epsh*(1-tanh((VV-ahV1)/ahV3)*tanh((VV-ahV1)/ahV3)))
@@ -38,9 +39,9 @@ biohh1
 0.5*(1+tanh((VV-atV1)/atV2)-2*tt)/(tx0+epst*(1+tanh((VV-atV1)/atV3))*(1-tanh((VV-atV1)/atV4))*(1-tanh(VV-atV1)*tanh((1/atV3+1/atV4)*(VV-atV1)))/(1+tanh((VV-atV1)/atV3)*tanh((VV-atV1)/atV4)))
 # h current inactivation
 0.5*(1+tanh((VV-azV1)/azV2)-2*zz)/(tz0+epsz*(1-tanh((VV-azV1)/azV3)*tanh((VV-azV1)/azV3)))
-# Objective/Cost function
+# Objective/Cost function - note that regularization factor enters here
 (Vdata-VV)*(Vdata-VV)+k1*k1
-# variable names
+# variable names - these need to be two characters
 VV
 mm
 hh
@@ -55,7 +56,7 @@ rr
 ss
 tt
 zz
-# parameter names
+# parameter names - also need to be at least two characters
 #1
 Cm
 #2
@@ -202,7 +203,7 @@ epsz
 rlt
 #73
 rht
-# control names
+# control names - used for regularization
 k1
 # data names
 Vdata
