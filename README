@@ -38,7 +38,7 @@ model distributed here is the 9-current model described in the manuscript.
 * Generate the estimation code
 
 Next, a python program (originally by Bryan Toth) converts the symbolic
-description of the model in =equation.txt= into C++ functions. Essentially this
+description of the model in =equations.txt= into C++ functions. Essentially this
 involves computing a lot of derivatives to get the Jacobian and Hessian. To run
 this step:
 
@@ -114,7 +114,13 @@ Because the file names for the output of the =biohh1= analysis are fixed, you
 may wish to copy =specs.txt=, =equations.txt=, the data files, and the executable to
 a new directory if you want to run a different analysis.
 
+To generate cross-epoch predictions, you will need to take the parameter
+estimates from the estimation epochs and create a new =specs.txt= with those
+values fixed. Then run an estimation procedure on the first 100 ms or so of data
+from the new epoch to get updated state estimates for the new epoch, then
+predict forward as above.
+
 The full dataset used in the manuscript is too large to include in this archive,
 but we are happy to make it available on request. Contact Dan Meliza (now in the
-University of Virginia Department of Psychology)
+University of Virginia Department of Psychology).
 
