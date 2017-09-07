@@ -100,19 +100,19 @@ for k in range(nF):
 Fdim = len(Feqnstr)
 Pdim = len(Lparams)
 
-print "Making symbols using sympy module:"
+print ("Making symbols using sympy module:")
 Sv = []
 Sp = []
 Sk = []
 Sd = []
 Si = []
-print "  variables..."
+print ("  variables...")
 for i in range(len(Lvars)):
   Sv.append(sym.Symbol(Lvars[i]))
-print "  parameters..."
+print ("  parameters...")
 for i in range(len(Lparams)):
   Sp.append(sym.Symbol(Lparams[i]))
-print "  data..."
+print ("  data...")
 for i in range(nU):
   Sd.append(sym.Symbol(Ldata[i]))
   Sk.append(sym.Symbol(Lcouple[2*i]))
@@ -123,7 +123,7 @@ for i in range(nI):
 
 Sall = Sv + Sk + Sp
 
-print "  functions..."
+print ("  functions...")
 Sf = []
 for i in range(nF):
   Sf.append(sym.Function(Funcstr[i]))
@@ -153,7 +153,7 @@ for k in range(Fdim):
     sTemp1 = sTemp1.replace(Funcstr[i],sTemp2)
   sTemp2 = "Feqns.append("
   sTemp2 = sTemp2 + sTemp1 + ")"
-  exec sTemp2
+  exec (sTemp2)
 
 # Define symbolic objective function
 Fobj = []
@@ -172,7 +172,7 @@ for i in range(nU):
   sTemp1 = sTemp1.replace(Ldata[i],sTemp2)
 sTemp2 = "Fobj.append("
 sTemp2 = sTemp2 + sTemp1 + ")"
-exec sTemp2
+exec (sTemp2)
 
 
 # For a continuous version of the Jacobian and Hessian of the
@@ -334,7 +334,7 @@ def subfunc(mystr,myi):
    return mytemp
 #end subfunc
 
-print "Building constraint equation strings..."
+print ("Building constraint equation strings...")
 strAllCon = []
 for icon in range(len(AllCon)):
    temp1 = []
@@ -345,7 +345,7 @@ for icon in range(len(AllCon)):
       temp1.append(Stemp)
    strAllCon.append(temp1)
 
-print "Building objective function strings..."
+print ("Building objective function strings...")
 strObj = []
 temp1 = []
 for n in [0,1,2]:
@@ -355,21 +355,22 @@ for n in [0,1,2]:
     temp1.append(Stemp)
 strObj.append(temp1)
 
-print "Building Jacobian..."
+print ("Building Jacobian...")
 sJac = []
 for icon in range(len(AllCon)):
    temp1 = []
    for jvar in range(len(Sall)):
       temp2 = []
       for n in [0,1,2]:
+         import pdb; pdb.set_trace() ## DEBUG ##
          Stemp = str(sym.diff(AllCon[icon][n],Sall[jvar]))
          Stemp = subvars(Stemp,n)
-	 Stemp = subfunc(Stemp,n)
+         Stemp = subfunc(Stemp,n)
          temp2.append(Stemp)
       temp1.append(temp2)
    sJac.append(temp1)
 
-print "Building objective gradient strings..."
+print ("Building objective gradient strings...")
 sObj = []
 for jvar in range(len(Sall)):
    temp2 = []
@@ -380,7 +381,7 @@ for jvar in range(len(Sall)):
       temp2.append(Stemp)
    sObj.append(temp2)
 
-print "Building Hessian..."
+print ("Building Hessian...")
 sHes = []
 for icon in range(len(AllCon)):
    temp1 = []
@@ -389,26 +390,26 @@ for icon in range(len(AllCon)):
       for kvar in range(len(Sall)):
          temp3 = []
          for n in [0,1,2]:
-	    Stemp = str(sym.diff(sym.diff(AllCon[icon][n],Sall[jvar]),Sall[kvar]))
+            Stemp = str(sym.diff(sym.diff(AllCon[icon][n],Sall[jvar]),Sall[kvar]))
             Stemp = subvars(Stemp,n)
-	    Stemp = subfunc(Stemp,n)
+            Stemp = subfunc(Stemp,n)
             temp3.append(Stemp)
          temp2.append(temp3)
       temp1.append(temp2)
    sHes.append(temp1)
 
-print "Adding Hessian for the objective function..."
+print ("Adding Hessian for the objective function...")
 temp1=[]
 for jvar in range(len(Sall)):
     temp2 = []
     for kvar in range(len(Sall)):
-	temp3 = []
-	for n in [0,1,2]:
-	    Stemp = str(sym.diff(sym.diff(AllObj[n],Sall[jvar]),Sall[kvar]))
-	    Stemp = subvars(Stemp,n)
-	    Stemp = subfunc(Stemp,n)
-	    temp3.append(Stemp)
-	temp2.append(temp3)
+        temp3 = []
+        for n in [0,1,2]:
+            Stemp = str(sym.diff(sym.diff(AllObj[n],Sall[jvar]),Sall[kvar]))
+            Stemp = subvars(Stemp,n)
+            Stemp = subfunc(Stemp,n)
+            temp3.append(Stemp)
+        temp2.append(temp3)
     temp1.append(temp2)
 sHes.append(temp1)
 
@@ -445,12 +446,12 @@ for i in range(len(AllCon)):
                 for n in [0,1,2]:
                     F = sJac[i][j][n]
                     if n == 0:
-			temp1 = temp1 + F
-	            else:
+                        temp1 = temp1 + F
+                    else:
                         temp1 = temp1 + '+' + F
                 temp2.append(temp1)
-	        temp2.append(i)
-        	temp2.append(j)
+                temp2.append(i)
+                temp2.append(j)
                 VJac.append(temp2)
 
 # Fill out objective gradient
@@ -512,32 +513,32 @@ for j in range(len(Sall)):
              temp1.append(k)
              temp1.append(n)
              temp1.append(H)
-	     temp1.append(1)
-	     if n == 0:
-		temp1.append(sHes[0][j][k][1])
+             temp1.append(1)
+             if n == 0:
+                temp1.append(sHes[0][j][k][1])
              VHes.append(temp1)
              index = index + 1
      else:  # These are the parameter/parameter derivatives
        H = sHes[0][j][k][0]
        if H != '0':
          temp2 = []
-	 temp1 = ''
+         temp1 = ''
          for n in [0,1,2]:
            H = sHes[0][j][k][n]
-	   if n == 0:
-	      temp1 = temp1 + H
-	   else:
-	      temp1 = temp1 + '+' + H
+           if n == 0:
+              temp1 = temp1 + H
+           else:
+              temp1 = temp1 + '+' + H
          temp2.append(index)
-	 temp2.append(0)
-	 temp2.append(j)
-	 temp2.append(k)
-	 temp2.append(-1)
+         temp2.append(0)
+         temp2.append(j)
+         temp2.append(k)
+         temp2.append(-1)
          temp2.append(temp1)
-	 temp2.append(1)
-	 VHes.append(temp2)
-	 index = index + 1
-	 oddball = oddball + 1
+         temp2.append(1)
+         VHes.append(temp2)
+         index = index + 1
+         oddball = oddball + 1
 
 
 # Fill out additional constraints, checking to see if row/column has been indexed already
@@ -550,13 +551,13 @@ for i in range(len(AllCon)):
             H = sHes[i+1][j][k][n]
             new = 0
             if H != '0':
-	        # Check to see if row/column has been used before
+                # Check to see if row/column has been used before
                 for u in range(len(VHes)):
                      if j == VHes[u][2]:
                          if k == VHes[u][3]:
                            if n == VHes[u][4]:
-			       oldindex = VHes[u][0]
- 			       new = 1
+                               oldindex = VHes[u][0]
+                               new = 1
                                temp1 = []
                                temp1.append(oldindex)
                                temp1.append(i+1)
@@ -564,9 +565,9 @@ for i in range(len(AllCon)):
                                temp1.append(k)
                                temp1.append(n)
                                temp1.append(H)
-			       temp1.append(0)
+                               temp1.append(0)
                                if n == 0:
-				temp1.append(sHes[i+1][j][k][1])
+                                temp1.append(sHes[i+1][j][k][1])
                 if new == 1:
                    VHes.append(temp1) # Use old index
                 elif new == 0: # Assign new index to new row/column combination
@@ -577,53 +578,53 @@ for i in range(len(AllCon)):
                    temp1.append(k)
                    temp1.append(n)
                    temp1.append(H)
-		   temp1.append(1)
-		   if n==0:
-		    temp1.append(sHes[i+1][j][k][1])
+                   temp1.append(1)
+                   if n==0:
+                    temp1.append(sHes[i+1][j][k][1])
                    VHes.append(temp1)
                    index = index + 1
         else: # Take care of the oddballs: parameter/parameter combinations
-	  H = sHes[i+1][j][k][0]
-	  new = 0
-	  if H != '0':
-	    for u in range(len(VHes)):
-		if j == VHes[u][2]:
-		    if k == VHes[u][3]:
-			oldindex = VHes[u][0]
-			new = 1
-			temp2 = []
-			temp1 = ''
-			for n in [0,1,2]:
-			    H = sHes[i+1][j][k][n]
-			    if n ==0:
-				temp1 = temp1 + H
-			    else:
-				temp1 = temp1 + '+' + H
-			temp2.append(oldindex)
-			temp2.append(i+1)
-			temp2.append(j)
-			temp2.append(k)
-			temp2.append(-1)
-			temp2.append(temp1)
-			temp2.append(0)
-	    if new == 1:
-		VHes.append(temp2)
-	    elif new == 0:
-		temp2 = []
-		temp1 = ''
-		for n in [0,1,2]:
-		    H = sHes[i+1][j][k][n]
-		    if n == 0:
-			temp1 = temp1 + H
-		    else:
-			temp1 = temp1 + '+' + H
-		temp2.append(index)
-		temp2.append(i+1)
-		temp2.append(j)
-		temp2.append(k)
-		temp2.append(-1)
-		temp2.append(temp1)
-		temp2.append(1)
-		VHes.append(temp2)
-		index = index + 1
-		oddball = oddball + 1
+          H = sHes[i+1][j][k][0]
+          new = 0
+          if H != '0':
+            for u in range(len(VHes)):
+                if j == VHes[u][2]:
+                    if k == VHes[u][3]:
+                        oldindex = VHes[u][0]
+                        new = 1
+                        temp2 = []
+                        temp1 = ''
+                        for n in [0,1,2]:
+                            H = sHes[i+1][j][k][n]
+                            if n ==0:
+                                temp1 = temp1 + H
+                            else:
+                                temp1 = temp1 + '+' + H
+                        temp2.append(oldindex)
+                        temp2.append(i+1)
+                        temp2.append(j)
+                        temp2.append(k)
+                        temp2.append(-1)
+                        temp2.append(temp1)
+                        temp2.append(0)
+            if new == 1:
+                VHes.append(temp2)
+            elif new == 0:
+                temp2 = []
+                temp1 = ''
+                for n in [0,1,2]:
+                    H = sHes[i+1][j][k][n]
+                    if n == 0:
+                        temp1 = temp1 + H
+                    else:
+                        temp1 = temp1 + '+' + H
+                temp2.append(index)
+                temp2.append(i+1)
+                temp2.append(j)
+                temp2.append(k)
+                temp2.append(-1)
+                temp2.append(temp1)
+                temp2.append(1)
+                VHes.append(temp2)
+                index = index + 1
+                oddball = oddball + 1

@@ -4,14 +4,14 @@
 #  Bryan A. Toth
 #  University of California, San Diego
 #  btoth@physics.ucsd.edu
-# 
-#  This script correlates couplings with their  
+#
+#  This script correlates couplings with their
 #  appropriate equation for use in determining the R-
 #  calue of the optimization.
 #
-#  This script has been developed as part of a suite of 
+#  This script has been developed as part of a suite of
 #  python scripts to define a dynamic parameter estimation
-#  problem using the optimization software IPOPT, but is 
+#  problem using the optimization software IPOPT, but is
 #  generally applicable to any application needing
 #  discretized derivatives of a vector field.
 #
@@ -49,7 +49,7 @@ for i in range(nU):
   # Sk includes the coupling and the derivative of the coupling: k1,k1d,k2,k2d,etc ...
 for i in range(nI):
   Si.append(sym.Symbol(Lstimuli[i]))
-  
+
 
 eqns = discretize.Feqnstr
 
@@ -65,10 +65,10 @@ for j in range(nU):
        continue
      else:
         correl[i] = 1
-	temp = eqns[i].partition(cup[2*j])
+        temp = eqns[i].partition(cup[2*j])
         temp1 = temp[0]
-        func.append(temp1.rpartition('+')[0])   
-	synch.append(temp[1]+temp[2])
+        func.append(temp1.rpartition('+')[0])
+        synch.append(temp[1]+temp[2])
 #Feqns = []
 #for k in range(nU):
 #  sTemp1 = func[k]
@@ -97,7 +97,7 @@ def subvars(mystr):
     mytemp = mystr
     mytemp = sym.sympify(mytemp)
     mytemp = sym.ccode(mytemp)
-    
+
     for j in range(len(Sv)):
       Srep = "Xval[%d]" % j
       Sfind = Lvars[j]

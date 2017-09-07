@@ -24,12 +24,11 @@ OBJS = $(SRCS:.cpp=.o)
 all: %(probl)s
 
 %%.o : %%.cpp
-	$(CXX) $(CFLAGS) $(COIN_CFLAGS) -c $<
+        $(CXX) $(CFLAGS) $(COIN_CFLAGS) -c $<
 
 %(probl)s: $(OBJS)
-	$(CXX) $(OBJS) $(COIN_LDFLAGS) -o %(probl)s
+        $(CXX) $(OBJS) $(COIN_LDFLAGS) -o %(probl)s
 """
 
 open("Makefile","wt").write(template % dict(probl = prob.lower(),
                                             eqns = "myfunctions.cpp" if nF else ""))
-

@@ -4,16 +4,16 @@
 #  Bryan A. Toth
 #  University of California, San Diego
 #  btoth@physics.ucsd.edu
-# 
-#  This script writes the class header file for a C++ IPOPT 
+#
+#  This script writes the class header file for a C++ IPOPT
 #  program defined by the vector field in the file
 #  equations.txt and written by the script makecode.py.
-#  The file written by this script defines a class that is 
+#  The file written by this script defines a class that is
 #  further described in the file written by makecode.py.
 #
-#  This script has been developed as part of a suite of 
+#  This script has been developed as part of a suite of
 #  python scripts to define a dynamic parameter estimation
-#  problem using the optimization software IPOPT, but is 
+#  problem using the optimization software IPOPT, but is
 #  generally applicable to any application needing
 #  discretized derivatives of a vector field.
 #
@@ -98,20 +98,20 @@ public:
                                  Index n, const Number* x, const Number* z_L, const Number* z_U,
                                  Index m, const Number* g, const Number* lambda,
                                  Number obj_value,
-				 const IpoptData* ip_data,
-				 IpoptCalculatedQuantities* ip_cq);
+                                 const IpoptData* ip_data,
+                                 IpoptCalculatedQuantities* ip_cq);
   //@}
 
 private:
   /**@name Methods to block default compiler methods.
    * The compiler automatically generates the following three methods.
    *  Since the default compiler implementation is generally not what
-   *  you want (for all but the most simple classes), we usually 
+   *  you want (for all but the most simple classes), we usually
    *  put the declarations of these methods in the private section
    *  and never implement them. This prevents the compiler from
    *  implementing an incorrect "default" behavior without us
    *  knowing. (See Scott Meyers book, "Effective C++")
-   *  
+   *
    */
   //@{
   //  %(probu)s_NLP();

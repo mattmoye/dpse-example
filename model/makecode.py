@@ -6,7 +6,7 @@
 #  Bryan A. Toth
 #  University of California, San Diego
 #  btoth@physics.ucsd.edu
-# 
+#
 #  This script builds C++ code to run a dynamical parameter
 #   estimation optimization problem with the optimization
 #   software IPOPT.
@@ -14,17 +14,17 @@
 #  Specifically, given a vector-field (model) of the form:
 #
 #           dx_1(t) = G_1(x_1(t),x_p(t),q)
-# 
+#
 #           dx_p(t) = G_p(x_1(t),x_p(t),q)
 #
 #          where x_p denotes 1 or more equations in the model,
 #
-#  this code takes the discretized vector field and objective 
+#  this code takes the discretized vector field and objective
 #  function (discretized in companion script discretize.py),
-#  and builds the requisite IPOPT functions to solve the 
+#  and builds the requisite IPOPT functions to solve the
 #  resulting optimization problem.
 #
-#  This script has been developed as part of a suite of 
+#  This script has been developed as part of a suite of
 #  python scripts to define a dynamic parameter estimation
 #  problem using the optimization software IPOPT, but could
 #  easily be modified for use with other optimization software.
@@ -112,7 +112,7 @@ f.write('  nP=%d;\n' % nP)
 f.write('  nY=%d;\n' % nY)
 f.write('  nI=%d;\n\n' % nI)
 
-# Define variable names 
+# Define variable names
 f.write('\
      K11val = new double[nU];\n\
      K11val2 = new double[nU];\n\
@@ -148,11 +148,11 @@ f.write("     if (fin.is_open())\n\
        while (! fin.eof())\n\
        {\n\
          getline (fin,buffer);\n\
-	 if (buffer[0] !='#')\n\
-	   {\n\
-	   specs[count] = buffer;\n\
-	   count++;\n\
-	   }\n\
+         if (buffer[0] !='#')\n\
+           {\n\
+           specs[count] = buffer;\n\
+           count++;\n\
+           }\n\
        }\n\
        fin.close();\n\
      }\n\
@@ -190,15 +190,15 @@ for i in range(nU):
     temp1 = "%lf"
     f.write('\n\
     for(Index jt=0;jt<skip;jt++)\n\
-	{\n\
-	ret = fscanf (pFile%d, "%s", &%s[jt]);\n\
-	if (ret == EOF) break;\n\
-	}\n\
+        {\n\
+        ret = fscanf (pFile%d, "%s", &%s[jt]);\n\
+        if (ret == EOF) break;\n\
+        }\n\
     for(Index jt=0;jt<2*Time+1;jt++)\n\
-	{\n\
-	ret = fscanf (pFile%d, "%s", &%s[jt]);\n\
-	if (ret == EOF) break;\n\
-	}\n\
+        {\n\
+        ret = fscanf (pFile%d, "%s", &%s[jt]);\n\
+        if (ret == EOF) break;\n\
+        }\n\
     fclose (pFile%d);\n' % (i,temp1, discretize.Ldata[i]+'dummy',i,temp1,discretize.Ldata[i],i))
 #########  End for loop #############
 
@@ -217,14 +217,14 @@ for i in range(nI):
     f.write('\n\
     for(Index jt=0;jt<skip;jt++)\n\
         {\n\
-	ret = fscanf (qFile%d, "%s", &%s[jt]);\n\
-	if (ret == EOF) break;\n\
+        ret = fscanf (qFile%d, "%s", &%s[jt]);\n\
+        if (ret == EOF) break;\n\
         }\n\
     for(Index jt=0;jt<2*Time+1;jt++)\n\
         {\n\
-	ret = fscanf (qFile%d, "%s", &%s[jt]);\n\
-	if (ret == EOF) break;\n\
-	}\n\
+        ret = fscanf (qFile%d, "%s", &%s[jt]);\n\
+        if (ret == EOF) break;\n\
+        }\n\
     fclose (qFile%d);\n' % (i,temp1,discretize.Lstimuli[i]+'dummy',i,temp1,discretize.Lstimuli[i],i))
 #########  End for loop #############
 
@@ -245,13 +245,13 @@ f.write('\
        bounds[k][3] = 0.0;\n\
        while(ptr != 0) {\n\
           if(counter<3) {\n\
-	     bounds[k][counter] = atof(ptr);\n\
-	     }\n\
+             bounds[k][counter] = atof(ptr);\n\
+             }\n\
           if(counter==3) {\n\
              bounds[k][counter] = atof(ptr);\n\
              }\n\
-	  ptr = strtok(0,",");\n\
-	  counter++;\n\
+          ptr = strtok(0,",");\n\
+          counter++;\n\
           }\n\
     }\n\n')
 # If initial conditions are in a data file, read in the data file
@@ -260,7 +260,7 @@ f.write('\
        {\n\
        filename = specs[4+nU+nI];\n\
        }\n\n')
-  
+
 
 f.write('\
 }\n\n')
@@ -306,7 +306,7 @@ f.write('\n\
 
 f.write('// returns the size of the problem\n\
 bool %s_NLP::get_nlp_info(Index& n, Index& m, Index& nnz_jac_g,\n\
-				Index& nnz_h_lag, IndexStyleEnum& index_style)\n\n' % probu)
+                                Index& nnz_h_lag, IndexStyleEnum& index_style)\n\n' % probu)
 # Number of variables
 alpha = 2*(nY+2*nU)
 beta = nY+2*nU+nP
@@ -373,15 +373,15 @@ f.write('        if(jt<Time) {\n\
        }\n\
     }\n')
 
-f.write('     for(Index con=0;con<2*nU;con++) {\n')    
+f.write('     for(Index con=0;con<2*nU;con++) {\n')
 f.write('       // Bounds for k\n')
 f.write('       x_l[(Time+1)*(nY+con)+jt]=bounds[nY+con][0];\n')
 f.write('       x_u[(Time+1)*(nY+con)+jt]=bounds[nY+con][1];\n')
 f.write('       // Bounds for midpoints\n')
 f.write('       if(jt<Time) {\n\
           x_l[(Time+1)*(nY+2*nU)+Time*(nY+con)+jt]=bounds[nY+con][0];\n\
-	  x_u[(Time+1)*(nY+2*nU)+Time*(nY+con)+jt]=bounds[nY+con][1];\n\
-	  }\n\
+          x_u[(Time+1)*(nY+2*nU)+Time*(nY+con)+jt]=bounds[nY+con][1];\n\
+          }\n\
      }\n\n')
 f.write('  } // End for loop\n\n')
 f.write('     for(Index par=0;par<nP;par++) {\n')
@@ -448,25 +448,25 @@ f.write('\
     \n\
       for(Index jt=0;jt<skip;jt++)\n\
           {\n\
-	  ret = fscanf (initFILE,"')
+          ret = fscanf (initFILE,"')
 for i in range(nY):
    f.write('%s ' % temp1)
 f.write('"')
 for i in range(nY):
    f.write(',&skipinit[jt][%d]' % i)
 f.write(');\n\
-	  if (ret == EOF) break;\n\
+          if (ret == EOF) break;\n\
           }\n\
       for(Index jt=0;jt<2*Time+1;jt++)\n\
           {\n\
-	  ret = fscanf (initFILE,"')
+          ret = fscanf (initFILE,"')
 for i in range(nY):
    f.write('%s ' % temp1)
 f.write('"')
 for i in range(nY):
    f.write(',&init[jt][%d]' % i)
 f.write(');\n\
-	  if (ret == EOF) break;\n\
+          if (ret == EOF) break;\n\
           }\n\
     fclose (initFILE);\n\
     }\n\n')
@@ -475,28 +475,28 @@ f.write(');\n\
 #  the numbers given in specs.txt or from an initial data file
 
 f.write('  for(Index jt=0;jt<Time+1;jt++) {\n')
-f.write('     for(Index var=0;var<nY;var++) {\n')    
+f.write('     for(Index var=0;var<nY;var++) {\n')
 f.write('       // Initial conditions for x\n')
 f.write('       if (specs[3+nU+nI] == "1")\n\
                   {\n\
-		  x[(Time+1)*var+jt] = init[2*jt][var];\n\
-		  }\n\
-	        else\n\
-	          {\n\
-		  x[(Time+1)*var+jt] = bounds[var][2];\n\
-		  }\n')
+                  x[(Time+1)*var+jt] = init[2*jt][var];\n\
+                  }\n\
+                else\n\
+                  {\n\
+                  x[(Time+1)*var+jt] = bounds[var][2];\n\
+                  }\n')
 f.write('       // Initial conditions for midpoints\n')
 f.write('       if(jt<Time) {\n\
                   if (specs[3+nU+nI] == "1")\n\
-		    {\n\
-		    x[(Time+1)*(nY+2*nU)+Time*var+jt] = init[2*jt+1][var];\n\
-		    }\n\
-		  else\n\
-		    {\n\
-		    x[(Time+1)*(nY+2*nU)+Time*var+jt] = bounds[var][2];\n\
-		    }\n\
-		  }\n\
-		}\n')
+                    {\n\
+                    x[(Time+1)*(nY+2*nU)+Time*var+jt] = init[2*jt+1][var];\n\
+                    }\n\
+                  else\n\
+                    {\n\
+                    x[(Time+1)*(nY+2*nU)+Time*var+jt] = bounds[var][2];\n\
+                    }\n\
+                  }\n\
+                }\n')
 
 f.write('     for(Index cup=0;cup<2*nU;cup++) {\n')
 f.write('       // Initial conditions for k\n')
@@ -504,8 +504,8 @@ f.write('       x[(Time+1)*(cup+nY)+jt]=bounds[cup+nY][2];\n')
 f.write('       // Initial conditions for midpoints\n')
 f.write('       if(jt<Time) {\n\
                   x[(Time+1)*(nY+2*nU)+Time*(cup+nY)+jt]=bounds[cup+nY][2];\n\
-	          }\n\
-	      }\n')
+                  }\n\
+              }\n')
 
 f.write('  } // End for loop\n\n')
 
@@ -514,9 +514,9 @@ f.write('     // Initial conditions for p%d\n' % (i+1))
 f.write('     x[2*Time*(nY+2*nU)+nY+2*nU+par]=bounds[nY+2*nU+par][2];\n\
               }\n\n')
 f.write('  for(Index i=0;i<ROWS;i++) delete [] init[i];\n\
-   delete [] init;\n') 
+   delete [] init;\n')
 f.write('  return true;\n\
-}\n\n\n') 
+}\n\n\n')
 
 
 
@@ -664,12 +664,12 @@ VObj = discretize.VObj
 
 for i in range(len(VObj)):
     if VObj[i][1] < nY+2*nU:
-	if VObj[i][2] == 0:
-	    f.write('    grad_f[jt+%d*(Time+1)] = (%s)/(2*Time+1);\n' % (VObj[i][1], VObj[i][0]))
+        if VObj[i][2] == 0:
+            f.write('    grad_f[jt+%d*(Time+1)] = (%s)/(2*Time+1);\n' % (VObj[i][1], VObj[i][0]))
         elif VObj[i][2] == 2:
-	    f.write('    grad_f[(Time+1)*(2*nU+nY) + %d*Time + jt] = (%s)/(2*Time+1);\n' % (VObj[i][1], VObj[i][0]))
+            f.write('    grad_f[(Time+1)*(2*nU+nY) + %d*Time + jt] = (%s)/(2*Time+1);\n' % (VObj[i][1], VObj[i][0]))
     else:
-	f.write('     grad_f[(2*Time+1)*(nY+2*nU)+%d] = (%s)/(2*Time+1);\n' % (VObj[i][1]-nY-nU, VObj[i][0]))
+        f.write('     grad_f[(2*Time+1)*(nY+2*nU)+%d] = (%s)/(2*Time+1);\n' % (VObj[i][1]-nY-nU, VObj[i][0]))
 f.write('\n')
 f.write('  } //end for loop\n\n')
 
@@ -710,8 +710,8 @@ f.write('\n')
 
 for i in range(len(VObj)):
     if VObj[i][1] < nY+2*nU:
-	if VObj[i][2] == 0:
-	    f.write('    grad_f[Time+%d*(Time+1)] = (%s)/(2*Time+1);\n' % (VObj[i][1], VObj[i][0]))
+        if VObj[i][2] == 0:
+            f.write('    grad_f[Time+%d*(Time+1)] = (%s)/(2*Time+1);\n' % (VObj[i][1], VObj[i][0]))
 
 f.write('\n')
 f.write('  return true;\n\
@@ -854,9 +854,9 @@ for i in range(len(VJac)):
 
 f.write('\n')
 f.write('  } //end for loop\n\n')
-f.write('  } //end else\n\n') 
- 
-   
+f.write('  } //end else\n\n')
+
+
 f.write('  return true;\n\
 }\n\n\n')
 
@@ -895,43 +895,43 @@ lar = 0
 for i in range(len(VHes)):
     if VHes[i][6] == 1:
 # VHes[i][6] denotes whether this is the first element with these coordinates
-	row = VHes[i][2]
-	col = VHes[i][3]
-	mid = VHes[i][4]
-	count = VHes[i][0]
-	start = '%d*(Time+1)+%d*(Time)+%d' % (lar,med,sma)
-	if mid == -1:
-	    length = '1'
-	    sma = sma + 1
-	if mid == 2:
-	    length = 'Time'
-	    med = med + 1
-	if mid == 0:
-	    length = 'Time+1'
-	    lar = lar + 1
-        d1 = {count:start}  
+        row = VHes[i][2]
+        col = VHes[i][3]
+        mid = VHes[i][4]
+        count = VHes[i][0]
+        start = '%d*(Time+1)+%d*(Time)+%d' % (lar,med,sma)
+        if mid == -1:
+            length = '1'
+            sma = sma + 1
+        if mid == 2:
+            length = 'Time'
+            med = med + 1
+        if mid == 0:
+            length = 'Time+1'
+            lar = lar + 1
+        d1 = {count:start}
         d2 = {count:length}
-	dictstart.update(d1)
-	dictlength.update(d2)
-	f.write('\n   for(Index jt=0;jt<%s;jt++) {\n' % length)
-	f.write('     iRow[%s+jt] = ' % start)
+        dictstart.update(d1)
+        dictlength.update(d2)
+        f.write('\n   for(Index jt=0;jt<%s;jt++) {\n' % length)
+        f.write('     iRow[%s+jt] = ' % start)
         if row < nY+2*nU:
-	    if mid == 0:
-		f.write('(Time+1)*%d+jt;\n' % row)
-	    elif mid == 2:
-		f.write('(Time+1)*%d+Time*%d+jt;\n' % (nY+2*nU,row))
-	else:
-	    f.write('2*Time*%d+%d;\n' % (nY+2*nU, row))
-	f.write('     jCol[%s+jt] = ' % start)
+            if mid == 0:
+                f.write('(Time+1)*%d+jt;\n' % row)
+            elif mid == 2:
+                f.write('(Time+1)*%d+Time*%d+jt;\n' % (nY+2*nU,row))
+        else:
+            f.write('2*Time*%d+%d;\n' % (nY+2*nU, row))
+        f.write('     jCol[%s+jt] = ' % start)
         if col < nY+2*nU:
-	    if mid == 0:
-		f.write('(Time+1)*%d+jt;\n' % col)
-	    elif mid == 2:
-		f.write('(Time+1)*%d+Time*%d+jt;\n' % (nY+2*nU,col))
-	else:
-	    f.write('2*Time*%d+%d;\n' % (nY+2*nU, col))
+            if mid == 0:
+                f.write('(Time+1)*%d+jt;\n' % col)
+            elif mid == 2:
+                f.write('(Time+1)*%d+Time*%d+jt;\n' % (nY+2*nU,col))
+        else:
+            f.write('2*Time*%d+%d;\n' % (nY+2*nU, col))
 
-	f.write('   }\n')
+        f.write('   }\n')
 
 f.write('}\n\n\
 else {\n\
@@ -945,13 +945,13 @@ Objrow = 2*nY+nU
 # Doing the singletons first - should not be many
 for i in range(len(VHes)):
     if VHes[i][1] == Objrow:
-	mid = VHes[i][4]
-	count = VHes[i][0]
-	string = VHes[i][5]
-	start = dictstart[count]
-	if mid == -1:
-	    f.write('   values[%s] += ' % start)
-	    f.write('obj_factor*(%s)/(2*Time+1);\n\n' % string)
+        mid = VHes[i][4]
+        count = VHes[i][0]
+        string = VHes[i][5]
+        start = dictstart[count]
+        if mid == -1:
+            f.write('   values[%s] += ' % start)
+            f.write('obj_factor*(%s)/(2*Time+1);\n\n' % string)
 # Now loop all other entries over Time
 
 f.write('  for(Index jt=0;jt<Time;jt++) {\n\n')
@@ -989,13 +989,13 @@ f.write('\n')
 
 for i in range(len(VHes)):
     if VHes[i][1] == Objrow:
-	mid = VHes[i][4]
-	count = VHes[i][0]
-	string = VHes[i][5]
-	start = dictstart[count]
-	if mid != -1:
-	    f.write('    values[%s+jt] += ' % start)
-            f.write('obj_factor*(%s)/(2*Time+1);\n' % string) 
+        mid = VHes[i][4]
+        count = VHes[i][0]
+        string = VHes[i][5]
+        start = dictstart[count]
+        if mid != -1:
+            f.write('    values[%s+jt] += ' % start)
+            f.write('obj_factor*(%s)/(2*Time+1);\n' % string)
 f.write('   } //end loop over Time\n\n')
 f.write('   // Add elements for last time step\n\n')
 f.write('     for(Index i=0;i<nY;i++) {\n')
@@ -1032,14 +1032,14 @@ f.write('\n')
 
 for i in range(len(VHes)):
     if VHes[i][1] == Objrow:
-	mid = VHes[i][4]
-	if mid == 0:
-	    count = VHes[i][0]
-	    string = VHes[i][5]
-	    start = dictstart[count]
-	    length = dictlength[count]
-	    f.write('    values[%s+%s-1] += ' % (start, length))
-	    f.write('obj_factor*(%s)/(2*Time+1);\n' % string)
+        mid = VHes[i][4]
+        if mid == 0:
+            count = VHes[i][0]
+            string = VHes[i][5]
+            start = dictstart[count]
+            length = dictlength[count]
+            f.write('    values[%s+%s-1] += ' % (start, length))
+            f.write('obj_factor*(%s)/(2*Time+1);\n' % string)
 
 # Now do the Hessian of the constraints
 
@@ -1083,29 +1083,29 @@ f.write('\n')
 # Doing the singletons first - should not be many
 for i in range(len(VHes)):
     if VHes[i][1] != Objrow:
-	mid = VHes[i][4]
-	count = VHes[i][0]
-	string = VHes[i][5]
-	constraint = VHes[i][1]
-	start = dictstart[count]
-	if mid == -1:
-	    f.write('   values[%s] += ' % start)
-	    f.write('lambda[%d*jt+%d]*(%s);\n\n' % (len(AllCon),constraint,string))
+        mid = VHes[i][4]
+        count = VHes[i][0]
+        string = VHes[i][5]
+        constraint = VHes[i][1]
+        start = dictstart[count]
+        if mid == -1:
+            f.write('   values[%s] += ' % start)
+            f.write('lambda[%d*jt+%d]*(%s);\n\n' % (len(AllCon),constraint,string))
 
 for i in range(len(VHes)):
     if VHes[i][1] != Objrow:
-	mid = VHes[i][4]
-	count = VHes[i][0]
-	string = VHes[i][5]
-	start = dictstart[count]
-	constraint = VHes[i][1] 
-	if mid != -1:
-	    f.write('    values[%s+jt]   += ' % start)
+        mid = VHes[i][4]
+        count = VHes[i][0]
+        string = VHes[i][5]
+        start = dictstart[count]
+        constraint = VHes[i][1]
+        if mid != -1:
+            f.write('    values[%s+jt]   += ' % start)
             f.write('lambda[%d*jt+%d]*(%s);\n' % (len(AllCon),constraint, string))
-	    if mid == 0:
-		string = VHes[i][7]
-		f.write('    values[%s+jt+1] += ' % start)
-		f.write('lambda[%d*jt+%d]*(%s);\n' % (len(AllCon),constraint, string)) 
+            if mid == 0:
+                string = VHes[i][7]
+                f.write('    values[%s+jt+1] += ' % start)
+                f.write('lambda[%d*jt+%d]*(%s);\n' % (len(AllCon),constraint, string))
 f.write('   } // end for loop \n\n')
 
 f.write('  } // end else \n\n')
@@ -1218,8 +1218,8 @@ f.write('     }\n')
 f.write('  for (Index j=0;j<nP;j++) {\n\
      fprintf(OUTPUT5,"%s%s", x[(2*Time+1)*(nY+2*nU)+j]);\n\n' %(temp1,temp3))
 f.write('     }\n')
-        
-##################################### 
+
+#####################################
 f.write('\n\n')
 f.write(' // Output for Objective value')
 f.write('  printf("%s%sObjective value%s");\n' % (temp3,temp3,temp3))
@@ -1235,11 +1235,11 @@ f.write('\n\n\
   for (Index jt=0;jt<Time;jt++) {\n\
      for(Index i=0;i<nY;i++) {\n\
         Xval[i] = x[jt + i*(Time+1)];\n\
-	}\n\
+        }\n\
      \n\
      for(Index i=0;i<nU;i++) {\n\
         K11val[i] = x[jt + nY*(Time+1) + 2*i*(Time+1)];\n\
-	}\n\
+        }\n\
      \n')
 
 for i in range(nU):
@@ -1278,7 +1278,7 @@ f.write('  fclose (OUTPUT3);\n')
 f.write('  fclose (OUTPUT4);\n')
 f.write('  fclose (OUTPUT5);\n')
 
-f.write('}\n')       
+f.write('}\n')
 
 
 
