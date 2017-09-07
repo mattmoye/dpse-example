@@ -1,0 +1,212 @@
+# Data file for discretize.py
+# Discretize.py skips over any line that begin with #
+# Proper format is:
+# First line is problem name
+# Second line is number of equations (w/o cost), number of parameters, number of controls,
+# number of external stimuli (for instance, injected current)
+# Following lines list the equations
+# With the cost function last
+# Then the variable names (in same order as equations)
+# Parameter names used in equations
+# Control names used in equations
+# Data names used in equations
+# Problem Name - this will determine the name of the executable
+biocm
+# nY.nP,nU,nI,nF
+11,73,1,1,0
+# equations - ordinary first-order derivatives of the state variables wrt to time
+# dV/dt - note that the regularization term k1(Vdata-VV) enters here
+((gNa*mm*mm*mm*hh)*(ENa-VV)+(gKA*bb*bb*bb*bb*cc*dd+gKLT*ee*ee*ee**ee*ff+gKHT*(0.85*gg*gg + 0.15*hh)*(EK-VV)+gL*(EL-VV)+ghcn*zz*(EH-VV)+Iinj/Cm)+k1*(Vdata-VV)
+# dm/dt - Na activation
+(0.5*(1+tanh((VV-namv)/namdv) - mm))/(namt0+namt1*(1-tanh((VV-namtv)/namtdv)**2))
+# Na inactivation
+(0.5*(1+tanh((VV-nahv)/nahdv) - hh))/(naht0+naht1*(1-tanh((VV-nahtv)/nahtdv)**2))
+# KA activation
+(0.5*(1+tanh((VV-kamv)/kamdv)**(.25)- bb))/(kamt0+kamt1*(1-tanh((VV-kamtv)/kamdtv)**2))
+# KA inactivation - fast
+(0.5*(1+tanh((VV-kahv)/kahdv)**(.5)- cc))/(kaht0+kaht1*(1-tanh((VV-kahtv)/kahdtv)**2))
+# KA inactivation - slow
+(0.5*(1+tanh((VV-kahv)/kahdv)**(.5)- dd))/(kact0+kact1*(1-tanh((VV-kactv)/kacdtv)))
+# KLT activation
+(0.5*(1+tanh((VV-kltmv)/kltmdv)**(.25)- ee))/(kltmt0+kltmt1*(1-tanh((VV-kltmtv)/kltmdtv)**2))
+# KLT inactivation
+(0.25*(1+tanh((VV-klthv)/klthdv) + 0.5 - ff))/(kltht0+kltht1*(1-tanh((VV-klthtv)/klthdtv)**2))
+0.5*(1+tanh((VV-arV1)/arV2)-2*rr)/(tr0+epsr*(1-tanh((VV-arV1)/arV3)*tanh((VV-arV1)/arV3)))
+# T current activation
+0.5*(1+tanh((VV-asV1)/asV2)-2*ss)/(ts0+eps5*(1-tanh((VV-asV1)/asV3)*tanh((VV-asV1)/asV3)))
+# T current inactivation
+0.5*(1+tanh((VV-atV1)/atV2)-2*tt)/(tx0+epst*(1+tanh((VV-atV1)/atV3))*(1-tanh((VV-atV1)/atV4))*(1-tanh(VV-atV1)*tanh((1/atV3+1/atV4)*(VV-atV1)))/(1+tanh((VV-atV1)/atV3)*tanh((VV-atV1)/atV4)))
+# h current inactivation
+0.5*(1+tanh((VV-azV1)/azV2)-2*zz)/(tz0+epsz*(1-tanh((VV-azV1)/azV3)*tanh((VV-azV1)/azV3)))
+# Objective/Cost function - note that regularization factor enters here
+(Vdata-VV)*(Vdata-VV)+k1*k1
+# variable names - these need to be two characters
+VV
+mm
+hh
+nn
+bb
+pp
+qq
+# cc
+# dd
+uu
+rr
+ss
+tt
+zz
+# parameter names - also need to be at least two characters
+#1
+Cm
+#2
+gNa
+#3
+gP
+#4
+ENa
+#5
+gA1
+#6
+gA2
+#7
+gc
+#8
+EK
+#9
+gL
+#10
+EL
+#11
+gou
+#12
+gin
+#13
+gh
+#14
+Isa
+#15
+amV1
+#16
+amV2
+#17
+amV3
+#18
+tm0
+#19
+epsm
+#20
+ahV1
+#21
+ahV2
+#22
+ahV3
+#23
+th0
+#24
+epsh
+#25
+anV1
+#26
+anV2
+#27
+anV3
+#28
+tn0
+#29
+epsn
+#30
+abV1
+#31
+abV2
+#32
+abV3
+#33
+tb0
+#34
+epsb
+#35
+apV1
+#36
+apV2
+#37
+apV3
+#38
+tp0
+#39
+epsp
+#40
+aqV1
+#41
+aqV2
+#42
+aqV3
+#43
+tq0
+#44
+epsq
+#45
+deltasq
+#46
+auV1
+#47
+auV2
+#48
+auV3
+#49
+tu0
+#50
+epsu
+#51
+arV1
+#52
+arV2
+#53
+arV3
+#54
+tr0
+#55
+epsr
+#56
+asV1
+#57
+asV2
+#58
+asV3
+#59
+ts0
+#60
+eps5
+#61
+atV1
+#62
+atV2
+#63
+atV3
+#64
+atV4
+#65
+tx0
+#66
+epst
+#67
+azV1
+#68
+azV2
+#69
+azV3
+#70
+tz0
+#71
+epsz
+#72
+rlt
+#73
+rht
+# control names - used for regularization
+k1
+# data names
+Vdata
+# stimuli names
+Iinj
+# Functions
+# shc , 1
