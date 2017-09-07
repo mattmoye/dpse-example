@@ -28,6 +28,12 @@ http://www.coin-or.org/Ipopt/documentation/node10.html are reliable if followed
 carefully. You need to install BLAS, LAPACK, and the MA57 solver at a minimum.
 Your mileage may vary with other solvers.
 
+A =Dockerfile= is included for help in building the prerequisites in a
+container. You'll need to edit it to set the link to the HSL solvers (which are
+only distributed by request). Run =docker build -t dpse .= followed by =docker
+run -it --rm dpse= to fire up a shell in the container. The build command will
+install prerequisites and compile the model, so it may take a while.
+
 * Specify the model
 
 The model comprises a set of ordinary differential equations, which are
@@ -123,4 +129,3 @@ predict forward as above.
 The full dataset used in the manuscript is too large to include in this archive,
 but we are happy to make it available on request. Contact Dan Meliza (now in the
 University of Virginia Department of Psychology).
-
