@@ -13,7 +13,7 @@ template = """
 # Compilation of large problems may require a fairly recent (>= 4.3) version of
 # g++
 
-CFLAGS = -O3 -pipe -DNDEBUG -pedantic-errors
+CFLAGS = -O3 -pipe -DNDEBUG -pedantic-errors -g
 
 COIN_CFLAGS = $(shell pkg-config --cflags ipopt)
 COIN_LDFLAGS = $(shell pkg-config --libs ipopt)
@@ -24,10 +24,10 @@ OBJS = $(SRCS:.cpp=.o)
 all: %(probl)s
 
 %%.o : %%.cpp
-        $(CXX) $(CFLAGS) $(COIN_CFLAGS) -c $<
+\t$(CXX) $(CFLAGS) $(COIN_CFLAGS) -c $<
 
 %(probl)s: $(OBJS)
-        $(CXX) $(OBJS) $(COIN_LDFLAGS) -o %(probl)s
+\t$(CXX) $(OBJS) $(COIN_LDFLAGS) -o %(probl)s
 """
 
 open("Makefile","wt").write(template % dict(probl = prob.lower(),

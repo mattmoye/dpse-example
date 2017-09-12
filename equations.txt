@@ -13,9 +13,9 @@
 # Problem Name
 naklh
 # nY.nP,nU,nI,nF
-5,29,1,1,0
+5,30,1,1,0
 # equations
-((gNa*mm*mm*mm*hh)*(ENa-VV)+(gA1*bb*bb*bb*bb)*(EK-VV)+gL*(EL-VV)+gh*zz*(-43-VV)+Iinj/Isa)/Cm+k1*(Vdata-VV)
+((gNa*mm*mm*mm*hh)*(ENa-VV)+(gA1*bb*bb*bb*bb)*(EK-VV)+gL*(EL-VV)+gh*zz*(Eh-VV)+Iinj/Isa)/Cm+k1*(Vdata-VV)
 # Na activation
 0.5*(1+tanh((VV-amV1)/amV2)-2*mm)/(tm0+epsm*(1-tanh((VV-amV1)/amV3)*tanh((VV-amV1)/amV3)))
 # Na inactivation
@@ -50,46 +50,48 @@ EL
 #8
 gh
 #9
-Isa
+Eh
 #10
-amV1
+Isa
 #11
-amV2
+amV1
 #12
-amV3
+amV2
 #13
-tm0
+amV3
 #14
-epsm
+tm0
 #15
-ahV1
+epsm
 #16
-ahV2
+ahV1
 #17
-ahV3
+ahV2
 #18
-th0
+ahV3
 #19
-epsh
+th0
 #20
-abV1
+epsh
 #21
-abV2
+abV1
 #22
-abV3
+abV2
 #23
-tb0
+abV3
 #24
-epsb
+tb0
 #25
-azV1
+epsb
 #26
-azV2
+azV1
 #27
-azV3
+azV2
 #28
-tz0
+azV3
 #29
+tz0
+#30
 epsz
 # control names
 k1

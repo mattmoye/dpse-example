@@ -4,23 +4,22 @@ FROM debian:7.11
 RUN apt-get update && apt-get install -y \
   wget \
   build-essential \
+  pkg-config \
   gfortran \
-  python-pip \
   python-sympy \
   libatlas-base-dev
 
-RUN wget --no-check-certificate https://www.coin-or.org/download/source/Ipopt/Ipopt-3.10.2.tgz \
-    && echo "6a19cac8772c050bd52214a280b69b96ad18b6fa  Ipopt-3.10.2.tgz" | sha1sum -c - \
+RUN wget --no-check-certificate https://www.coin-or.org/download/source/Ipopt/Ipopt-3.12.8.tgz \
+    && echo "99180c51b0cde326a7e53f4661a5742baa1507aa  Ipopt-3.12.8.tgz" | sha1sum -c - \
     && mkdir -p /usr/src/Ipopt \
-    && tar zxvf Ipopt-3.10.2.tgz -C /usr/src/Ipopt --strip-components=1 \
-    && rm Ipopt-3.10.2.tgz
+    && tar zxvf Ipopt-3.12.8.tgz -C /usr/src/Ipopt --strip-components=1 \
+    && rm Ipopt-3.12.8.tgz
 
 ## insert your download URL from HSL here, or a URL to your private copy
 ## comment this out if you don't need the HSL 2011 solvers
 RUN wget --no-check-certificate https://gracula.psyc.virginia.edu/public/software/coinhsl-2014.01.10.tar.gz \
-    && mkdir -p /usr/src/coinhsl \
-    && tar zxvf coinhsl-2014.01.10.tar.gz -C /usr/src/coinhsl --strip-components=1 \
-    && find /usr/src/coinhsl/ -name "m*.f" -exec cp {} /usr/src/Ipopt/HSL ';' \
+    && mkdir -p /usr/src/Ipopt/ThirdParty/HSL/coinhsl \
+    && tar zxvf coinhsl-2014.01.10.tar.gz -C /usr/src/Ipopt/ThirdParty/HSL/coinhsl --strip-components=1 \
     && rm coinhsl-2014.01.10.tar.gz
 
 WORKDIR /usr/src/Ipopt
@@ -30,18 +29,17 @@ RUN cd ThirdParty/Metis \
     && ./get.Mumps \
     && cd ../.. \
     && ./configure --with-blas="-lblas -llapack" --with-lapack="-llapack" --prefix="/usr/local" \
-    && make \
-    && make install
-    && apt-get purge -y --auto-remove build-essential \
-    && rm -rf /usr/src/Ipopt /usr/src/coinshsl
+    && make -j $(nproc) \
+    && make install \
+    && ldconfig
+#    && rm -rf /usr/src/Ipopt
 
 WORKDIR /app
 ADD . /app
 
 ## build the code using the example equations.txt so that it's in the image
-RUN python models/makecode.py \
-    && make \
-    && biohh1
+RUN python model/makecode.py \
+    && make
 
 
 CMD ["/bin/bash"]

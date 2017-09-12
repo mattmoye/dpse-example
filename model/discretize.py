@@ -362,7 +362,6 @@ for icon in range(len(AllCon)):
    for jvar in range(len(Sall)):
       temp2 = []
       for n in [0,1,2]:
-         import pdb; pdb.set_trace() ## DEBUG ##
          Stemp = str(sym.diff(AllCon[icon][n],Sall[jvar]))
          Stemp = subvars(Stemp,n)
          Stemp = subfunc(Stemp,n)

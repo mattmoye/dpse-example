@@ -32,7 +32,10 @@ A =Dockerfile= is included for help in building the prerequisites in a
 container. You'll need to edit it to set the link to the HSL solvers (which are
 only distributed by request). Run =docker build -t dpse .= followed by =docker
 run -it --rm dpse= to fire up a shell in the container. The build command will
-install prerequisites and compile the model, so it may take a while.
+install prerequisites and compile the model, so it may take a while. If you'd
+like to edit the model, use =docker run -it -v `pwd`:/app --rm dpse= to mount
+the current directory. Note that running the model can require a lot of memory,
+so be sure to allocate at least 16 GB to the container.
 
 * Specify the model
 
@@ -94,13 +97,23 @@ the rest of the data in the example:
 The last commandline parameter specifies the number of time points to integrate
 forward after the end of the assimilation period.
 
+* Editing the model
+
+To change the equations of motion, edit =equations.txt=. This file is commented,
+but the format is very sensitive to bookkeeping errors. It is critical that the
+=nY,NP,nU,nI,nF= line match the number of equations, parameters, control terms,
+forcing terms, and adjust functions *exactly*. To change parameter bounds or
+input file (i.e., the forcing current and voltage observations), edit
+=specs.txt=. It is also crucial that this file match the variable and parameter
+counts exactly. Any errors may result in segmentation faults. Sorry.
+
 * Additional data
 
 The =data= subdirectory contains data for all three exemplar neurons from the
 manuscript. Each data collection epoch corresponds to two files, one ending in
-'v.dat' and the other ending in 'i.dat'. The former file contains a single
+=v.dat= and the other ending in =i.dat=. The former file contains a single
 column of floating point numbers in ASCII format, which is the recorded voltage
-in mV, starting at time 0 and sampled at the rate specified in specs.txt (50
+in mV, starting at time 0 and sampled at the rate specified in =specs.txt= (50
 kHz). The latter file contains the injected current (in pA) sampled at the same
 times.
 
