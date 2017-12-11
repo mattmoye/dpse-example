@@ -143,9 +143,9 @@ assimilation and prediction in the manuscript are as follows:
 
 |neuron |   assimilation  |   cross-epoch prediction|
 |-------|----------------:|------------------------:|
-  N1  |     20120406_1_3_19 |  20120406_1_3_15
-  N2  |     20120424_1_1_21 |  20120424_1_1_15
-  N3  |     20120116_1_1_6  |  20120116_1_1_2
+  N1  |     `20120406_1_3_19` | `20120406_1_3_15`
+  N2  |     `20120424_1_1_21` |  `20120424_1_1_15`
+  N3  |     `20120116_1_1_6`  |  `20120116_1_1_2`
 
 Currently the `specs.txt` file is set to run the analysis for N1. To
 analyze a different neuron, edit `specs.txt` and replace the names of
