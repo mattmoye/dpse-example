@@ -1,13 +1,16 @@
 # dynamical state and parameter estimation example
 
-This directory is a complete example of an analysis to estimate the
-parameters and state variables of a conductance-based neuron model using
-intracellular current clamp data. The code and data here were used in
-"Estimating Parameters and Predicting Membrane Voltages with
-Conductance-Based Neuron Models" by C Daniel Meliza, Mark Kostuk, Hao
-Huang, Alain Nogaret, Daniel Margoliash, and Henry D I Abarbanel. The
-code is free for use under the terms described in the file `LICENSE`.
-The data are part of the public domain and free for use.
+[![DOI](https://zenodo.org/badge/85078265.svg)](https://zenodo.org/badge/latestdoi/85078265)
+
+This directory is a complete example of an analysis to estimate the parameters
+and state variables of a conductance-based neuron model using intracellular
+current clamp data. The code and data here were used in "Estimating Parameters
+and Predicting Membrane Voltages with Conductance-Based Neuron Models" by C
+Daniel Meliza, Mark Kostuk, Hao Huang, Alain Nogaret, Daniel Margoliash, and
+Henry D I Abarbanel,
+[doi:10.1007/s00422-014-0615-5](http://doi.org/10.1007/s00422-014-0615-5). The
+code is free for use under the terms described in the file `LICENSE`. The data
+are part of the public domain and free for use.
 
 This file is a summary of the steps you need to run the analysis. For a
 more complete description of the algorithm, please consult Bryan Toth's
